@@ -1,19 +1,15 @@
-FROM tianon/centos:6.5
+FROM centos:7
 
+# Add build directory
 RUN mkdir /build
-
-ADD build/epel /build/epel
-RUN /build/epel/install.sh 
 
 ADD build/runit /build/runit
 RUN /build/runit/install.sh
 
-ADD build/sshd /build/sshd
-RUN /build/sshd/install.sh
-
 ADD build/rsyslogd /build/rsyslogd
 RUN /build/rsyslogd/install.sh
 
-#RUN /build/clean.sh
+# Clean up
+RUN rm -rf /build
 
 CMD runit
